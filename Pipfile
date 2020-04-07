@@ -9,6 +9,7 @@ verify_ssl = true
 pymongo = "*"
 pylint = "*"
 dnspython = "~=1.16.0"
+bitsv = "*"
 
 [requires]
 python_version = "3.6"
