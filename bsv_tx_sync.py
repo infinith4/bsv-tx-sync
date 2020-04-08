@@ -19,6 +19,7 @@ if __name__ == '__main__':
         mongo.test.address.insert({"address": addr})
 
     ## search woc network during xx minutes
+    # if get_textdata is None, not insert to db
     network_api = bitsv.network.NetworkAPI(network='test')
     bsv_transactions = network_api.get_transactions(addr)
     for txid in bsv_transactions:
