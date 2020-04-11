@@ -22,7 +22,9 @@ if __name__ == '__main__':
         network_api = bitsv.network.NetworkAPI(network='test')
         bsv_transactions = network_api.get_transactions(addr)
         for txid in bsv_transactions:
+            print("txid:" + txid)
             record_tx = mongo.test.transaction.find_one({"address": addr, "txid": txid})
+            print(record_tx)
             if record_tx == None:
                 responseTx = WhatsOnChainLib.get_textdata(txid)
                 if responseTx != None and responseTx.data != "":
