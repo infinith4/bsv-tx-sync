@@ -16,6 +16,7 @@ if __name__ == '__main__':
     record_address = mongo.test.address.find()
     for item in record_address:
         addr = item['address']
+        print("addr:" + addr)
         ## search woc network during xx minutes
         # if get_textdata is None, not insert to db
         network_api = bitsv.network.NetworkAPI(network='test')
@@ -26,7 +27,7 @@ if __name__ == '__main__':
                 responseTx = WhatsOnChainLib.get_textdata(txid)
                 if responseTx != None and responseTx.data != "":
                     mongo.test.transaction.insert({"address": addr, "txid": txid})
-
+                    print("inserted")
 
 
     
