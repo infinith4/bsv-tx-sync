@@ -3,7 +3,7 @@ import os
 from pymongo import MongoClient
 from conf.bsv_tx_sync_conf import BsvTxSyncConf
 import bitsv
-from lib.whats_on_chain_lib import WhatsOnChainLib
+from libraries.whats_on_chain_lib import WhatsOnChainLib
 import logging
 
 if __name__ == '__main__':
@@ -14,7 +14,8 @@ if __name__ == '__main__':
     mongo = MongoClient(connectionstr)
 
     record_address = mongo.test.address.find()
-    for addr in record_address['address']:
+    for item in record_address:
+        addr = item['address']
         ## search woc network during xx minutes
         # if get_textdata is None, not insert to db
         network_api = bitsv.network.NetworkAPI(network='test')
