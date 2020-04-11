@@ -13,21 +13,18 @@ if __name__ == '__main__':
     print(connectionstr)
     mongo = MongoClient(connectionstr)
 
-    addr = "mndvRsa9eyFDpyuUk5bnXwSyrDEZNhq138"
-    record_address = mongo.test.address.find({"address": addr})
-    if record_address.count() == 0:
-        mongo.test.address.insert({"address": addr})
-
-    ## search woc network during xx minutes
-    # if get_textdata is None, not insert to db
-    network_api = bitsv.network.NetworkAPI(network='test')
-    bsv_transactions = network_api.get_transactions(addr)
-    for txid in bsv_transactions:
-        record_tx = mongo.test.transaction.find_one({"address": addr, "txid": txid})
-        if record_tx == None:
-            responseTx = WhatsOnChainLib.get_textdata(txid)
-            if responseTx != None and responseTx.data != "":
-                mongo.test.transaction.insert({"address": addr, "txid": txid})
+    record_address = mongo.test.address.find()
+    for addr in record_address['address']:
+        ## search woc network during xx minutes
+        # if get_textdata is None, not insert to db
+        network_api = bitsv.network.NetworkAPI(network='test')
+        bsv_transactions = network_api.get_transactions(addr)
+        for txid in bsv_transactions:
+            record_tx = mongo.test.transaction.find_one({"address": addr, "txid": txid})
+            if record_tx == None:
+                responseTx = WhatsOnChainLib.get_textdata(txid)
+                if responseTx != None and responseTx.data != "":
+                    mongo.test.transaction.insert({"address": addr, "txid": txid})
 
 
 
