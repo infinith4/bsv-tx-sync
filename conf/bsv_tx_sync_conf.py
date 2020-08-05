@@ -1,3 +1,3 @@
 class BsvTxSyncConf(object):
     username = "bnoteuser"
-    password = "pallallp5"
+    password = ""
